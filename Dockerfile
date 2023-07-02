@@ -13,10 +13,10 @@ COPY pom.xml .
 COPY src/ src/
 
 # Descargar las dependencias del proyecto y compilar la aplicación
+RUN chmod +x mvnw
 RUN ./mvnw package -DskipTests
 
 #Establecer la imagen base para la ejecución
-RUN chmod +x mvnw
 FROM openjdk:8u212-jre-alpine3.9
 
 # Establecer el directorio de trabajo dentro del contenedor
