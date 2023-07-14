@@ -70,8 +70,8 @@ jobs:
 
       - name: Download task definition
         run: |
-          aws ecs describe-task-definition --task-definition ${{ vars.CLUSTER_TASK_DEF_FAMILY_PREFIX }}${{ github.event.repository.name }}-${{ inputs.CI_ENV }} > task-definition.json
-     
+          aws ecs describe-task-definition --task-definition ${{ vars.CLUSTER_TASK_DEF_FAMILY_PREFIX }}${{ github.event.repository.name }}-${{ inputs.CI_ENV }}  \
+          --query taskDefinition > task-definition.json
       - name: Show task definition
         run: |
             # Perform actions using the task-definition.json file
