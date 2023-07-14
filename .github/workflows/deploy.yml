@@ -68,11 +68,14 @@ jobs:
           IMAGE: ${{ inputs.IMAGE }}
           ARG2: ${{ inputs.CI_ENV }}
 
+      - name: Download task definition
+        run: |
+          aws ecs describe-task-definition --task-definition ${{ vars.CLUSTER_TASK_DEF_FAMILY_PREFIX }}${{ github.event.repository.name }}-${{ inputs.CI_ENV }}:latest > task-definition.json
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ${{ vars.CLUSTER_TASK_DEF_PREFIX }}${{ github.event.repository.name }}-${{ inputs.CI_ENV }}
+          task-definition: task-definition.json
           container-name: ${{ vars.CLUSTER_TASK_DEF_CONTAINER_PREFIX }}${{ github.event.repository.name }}-${{ inputs.CI_ENV }}
           image: ${{ inputs.IMAGE }}
 
