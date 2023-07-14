@@ -78,6 +78,7 @@ jobs:
             # For example, print the content of the file
             cat task-definition.json
       - name: Fill in the new image ID in the Amazon ECS task definition
+        
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
@@ -89,6 +90,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ vars.CLUSTER_SERVICE_PREFIX }}${{ github.event.repository.name }}- ${{ inputs.CI_ENV }}
+          service: ${{ vars.CLUSTER_SERVICE_PREFIX }}${{ github.event.repository.name }}-${{ inputs.CI_ENV }}
           cluster: ${{ vars.CLUSTER_PREFIX }}${{ inputs.CI_ENV }}
           wait-for-service-stability: true
