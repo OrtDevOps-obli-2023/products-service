@@ -9,6 +9,8 @@ COPY .mvn/ .mvn/
 COPY mvnw .
 COPY pom.xml .
 
+
+
 # Copiar el código fuente
 COPY src/ src/
 
@@ -19,13 +21,15 @@ RUN ./mvnw package -DskipTests
 #Establecer la imagen base para la ejecución
 FROM openjdk:8u212-jre-alpine3.9
 
+EXPOSE 80
+
 # Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
 # Copiar el archivo JAR de la etapa de construcción
 COPY --from=build /app/target/products-service-example-0.0.1-SNAPSHOT.jar .
 
-EXPOSE 8080
+
 
 # Establecer el comando de inicio de la aplicación
 CMD ["java", "-jar", "products-service-example-0.0.1-SNAPSHOT.jar"]
