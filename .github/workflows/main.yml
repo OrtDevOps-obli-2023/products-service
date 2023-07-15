@@ -107,10 +107,9 @@ jobs:
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
       - name: Build and push Docker image to ECR
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v2
         with:
           context: .
-          file: Dockerfile
           push: true
           tags: ${{ steps.setImageOutput.outputs.image }}
   dev:
