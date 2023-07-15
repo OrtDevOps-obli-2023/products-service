@@ -32,4 +32,6 @@ COPY --from=build /app/target/products-service-example-0.0.1-SNAPSHOT.jar .
 
 
 # Establecer el comando de inicio de la aplicación
-CMD ["java", "-jar", "products-service-example-0.0.1-SNAPSHOT.jar"]
+#CMD ["java", "-jar", "products-service-example-0.0.1-SNAPSHOT.jar"]
+
+CMD java -jar products-service-example-0.0.1-SNAPSHOT.jar --server.port=80
