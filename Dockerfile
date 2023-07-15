@@ -25,5 +25,7 @@ WORKDIR /app
 # Copiar el archivo JAR de la etapa de construcción
 COPY --from=build /app/target/products-service-example-0.0.1-SNAPSHOT.jar .
 
+EXPOSE 8080
+
 # Establecer el comando de inicio de la aplicación
 CMD ["java", "-jar", "products-service-example-0.0.1-SNAPSHOT.jar"]
