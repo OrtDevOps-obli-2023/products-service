@@ -29,5 +29,5 @@ WORKDIR /app
 # Copiar el archivo JAR de la etapa de construcción
 COPY --from=build /app/target/products-service-example-0.0.1-SNAPSHOT.jar .
 
-
-CMD java -jar products-service-example-0.0.1-SNAPSHOT.jar --server.port=80
+# --server.port=$SERVER_PORT
+CMD java -jar products-service-example-0.0.1-SNAPSHOT.jar
