@@ -59,11 +59,15 @@ jobs:
         id: jacoco
         uses: madrapps/jacoco-report@v1.3
         with:
-          paths: ${{ github.workspace }}/build/reports/jacoco/testCoverage/testCoverage.xml
+          paths: ${{ github.workspace }}/testCoverage.xml
           token: ${{ secrets.TOKEN_API }}
           min-coverage-overall: 40
           min-coverage-changed-files: 60
+      - name: Show jacoco report
+        run: |
+              cat ${{ github.workspace }}/testCoverage.xml
       
+      #build/reports/jacoco/testCoverage/
       - name: Analyze with SonarCloud
         run: ./.github/scripts/mavenAnalyze.sh
         shell: bash
@@ -94,7 +98,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: ${{ env.AWS_REGION }}
-
+        
       - name: Login AWS ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
