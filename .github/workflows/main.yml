@@ -54,6 +54,8 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: "11"
+
+      - run: mvn verify -Pjacoco-generate-report -DskipTests
       
       - name: Add coverage to PR
         id: jacoco
