@@ -54,6 +54,16 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: "11"
+      
+      - name: Add coverage to PR
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.3
+        with:
+          paths: ${{ github.workspace }}/build/reports/jacoco/testCoverage/testCoverage.xml
+          token: ${{ secrets.TOKEN_API }}
+          min-coverage-overall: 40
+          min-coverage-changed-files: 60
+      
       - name: Analyze with SonarCloud
         run: ./.github/scripts/mavenAnalyze.sh
         shell: bash
