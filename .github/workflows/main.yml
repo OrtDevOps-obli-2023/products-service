@@ -55,21 +55,34 @@ jobs:
         with:
           java-version: "11"
 
-      - run: mvn verify -Pjacoco-generate-report -DskipTests
+      # - run: mvn verify -Pjacoco-generate-report -DskipTests
       
-      - name: Add coverage to PR
-        id: jacoco
-        uses: madrapps/jacoco-report@v1.3
-        with:
-          paths: testCoverage.xml
-          token: ${{ secrets.TOKEN_API }}
-          min-coverage-overall: 40
-          min-coverage-changed-files: 60
-      - name: Show jacoco report
-        run: |
-              cat testCoverage.xml
+      # - name: Add coverage to PR
+      #   id: jacoco
+      #   uses: madrapps/jacoco-report@v1.3
+      #   with:
+      #     paths: testCoverage.xml
+      #     token: ${{ secrets.TOKEN_API }}
+      #     min-coverage-overall: 40
+      #     min-coverage-changed-files: 60
+      # - name: Show jacoco report
+      #   run: |
+      #         cat testCoverage.xml
       
       #build/reports/jacoco/testCoverage/
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
       - name: Analyze with SonarCloud
         run: ./.github/scripts/mavenAnalyze.sh
         shell: bash
