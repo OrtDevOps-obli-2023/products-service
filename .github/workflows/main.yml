@@ -59,13 +59,13 @@ jobs:
         id: jacoco
         uses: madrapps/jacoco-report@v1.3
         with:
-          paths: ${{ github.workspace }}/testCoverage.xml
+          paths: testCoverage.xml
           token: ${{ secrets.TOKEN_API }}
           min-coverage-overall: 40
           min-coverage-changed-files: 60
       - name: Show jacoco report
         run: |
-              cat ${{ github.workspace }}/testCoverage.xml
+              cat testCoverage.xml
       
       #build/reports/jacoco/testCoverage/
       - name: Analyze with SonarCloud
